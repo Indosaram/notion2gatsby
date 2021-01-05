@@ -34,9 +34,13 @@ regex_meta = re.compile(r'^== *(\w+) *:* (.+) *$')
 ignore_root = True
 
 
-def download_file(file_url, destination_folder):
-    # if 'amazonaws' in file_url:
-    #     file_url += f'?userId={NOTION_USER_ID}&cache=v2'
+def download_file(file_url, destination_folder, block_id=None):
+    if block_id is not None and 'amazonaws' in file_url:
+        file_url = (
+            'https://www.notion.so/image/'
+            + file_url.replace('://','%3A%2F%2F').replace('/','%2F')
+            + f'?table=block&id={block_id}&userId={NOTION_USER_ID}&cache=v2'
+        )
 
     r = requests.get(file_url, stream=True)
     # converts response headers mime type to an extension (may not work with everything)
@@ -83,7 +87,8 @@ def process_block(block, text_prefix=''):
         elif content.type == 'code':
             text = text + f'```{content.language}\n{content.title}\n```\n\n'
         elif content.type == 'image':
-            image_name = download_file(content.source, dest_path)
+            block_id = content.id
+            image_name = download_file(content.source, dest_path, block_id)
             text = text + text_prefix + f'![{image_name}]({image_name})\n\n'
         elif content.type == 'bulleted_list':
             text = text + text_prefix + f'* {content.title}\n'
@@ -169,12 +174,10 @@ def to_markdown(page_id, ignore):
     metas.append(f"title: '{page_title}'")
 
     # Download the cover and add it to the frontmatter.
-    raw_page = page.get()
-    page.get("format.page_cover")
-    if 'format' in raw_page and 'page_cover' in raw_page['format']:
-        page_cover_url = raw_page['format']['page_cover']
-        cover_image_name = download_file(page_cover_url, dest_path)
-        metas.append(f"featured: {cover_image_name}")
+    page_cover_url = page.get("format.page_cover")
+    block_id = page.id
+    cover_image_name = download_file(page_cover_url, dest_path, block_id)
+    metas.append(f"featured: {cover_image_name}")
 
     text, child_metas = process_block(page)
 

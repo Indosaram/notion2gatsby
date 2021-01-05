@@ -37,7 +37,7 @@ export default function BlogPost({ data, pageContext, location }) {
         <article>
           <h1>{post.frontmatter.title}</h1>
           <h3>{post.frontmatter.date}</h3>
-          {image}
+          <img src={image.src}></img>
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </article>        
       </main>
@@ -79,6 +79,7 @@ export const query = graphql`
       html
       frontmatter {
         title
+        date(formatString: "YYYY-MM-DD")
         description
         image: featured {
           childImageSharp {
