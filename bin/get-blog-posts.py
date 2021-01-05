@@ -1,27 +1,33 @@
-from notion.client import NotionClient
 import datetime
 import os
-from slugify import slugify
 import re
 import requests
-import time
 import hashlib
 import shutil
 import sys
 
+from slugify import slugify
+
+from notion.client import NotionClient
+
+
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
+NOTION_USER_ID = os.getenv('NOTION_USER_ID')
 NOTION_ROOT_PAGE_ID = os.getenv('NOTION_ROOT_PAGE_ID')
 
 if NOTION_TOKEN is None:
     sys.exit("The NOTION_TOKEN is missing, see the readme on how to set it.")
 if NOTION_ROOT_PAGE_ID is None:
-    sys.exit("The NOTION_ROOT_PAGE_ID is missing, see the readme on how to set it.")
+    sys.exit(
+        "The NOTION_ROOT_PAGE_ID is missing, see the readme on how to set it."
+    )
 
 client = NotionClient(token_v2=NOTION_TOKEN)
 root_page_id = NOTION_ROOT_PAGE_ID
 
-dest_path = os.path.normpath(os.path.join(
-    os.path.dirname(__file__), '..', 'content', 'blog'))
+dest_path = os.path.normpath(
+    os.path.join(os.path.dirname(__file__), '..', 'content', 'blog')
+)
 
 markdown_pages = {}
 regex_meta = re.compile(r'^== *(\w+) *:* (.+) *$')
@@ -29,6 +35,9 @@ ignore_root = True
 
 
 def download_file(file_url, destination_folder):
+    # if 'amazonaws' in file_url:
+    #     file_url += f'?userId={NOTION_USER_ID}&cache=v2'
+
     r = requests.get(file_url, stream=True)
     # converts response headers mime type to an extension (may not work with everything)
     ext = r.headers['content-type'].split('/')[-1]
@@ -79,6 +88,8 @@ def process_block(block, text_prefix=''):
         elif content.type == 'bulleted_list':
             text = text + text_prefix + f'* {content.title}\n'
             was_bulleted_list = True
+        elif content.type == 'to_do':
+            text = text + text_prefix + f'* {content.title}\n'
         elif content.type == 'divider':
             text = text + f'---\n'
         elif content.type == 'text':
@@ -94,6 +105,48 @@ def process_block(block, text_prefix=''):
         elif content.type == 'page':
             subpage_slug = to_markdown(content.id, ignore=False)
             text = text + f'[{content.title}](/blog/{subpage_slug})\n\n'
+        elif content.type == 'bookmark':
+            thumbnail = download_file(content.bookmark_cover, dest_path)
+            icon = download_file(content.bookmark_icon, dest_path)
+            link = content.link
+
+            text = (
+                text
+                + f"""
+<div style="width: 100%; max-width: 644px; margin-top: 4px; margin-bottom: 4px;">
+    <div>
+        <div style="display: flex;"><a target="_blank" rel="noopener noreferrer"
+                href="{link}"
+                style="display: block; color: inherit; text-decoration: none; flex-grow: 1; min-width: 0px;">
+                <div class="" role="button" tabindex="0"
+                    style="user-select: none; transition: background 20ms ease-in 0s; cursor: pointer; width: 100%; display: flex; flex-wrap: wrap-reverse; align-items: stretch; text-align: left; overflow: hidden; border: 1px solid rgba(55, 53, 47, 0.16); border-radius: 3px; position: relative; color: inherit; fill: inherit;">
+                    <div style="flex: 4 1 180px; padding: 12px 14px 14px; overflow: hidden; text-align: left;">
+                        <div
+                            style="font-size: 14px; line-height: 20px; color: rgb(55, 53, 47); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 24px; margin-bottom: 2px;">
+                            {content.title}</div>
+                        <div style="display: flex; margin-top: 6px;"><img
+                                src="{icon}"
+                                style="width: 16px; height: 16px; min-width: 16px; margin-right: 6px;">
+                            <div
+                                style="font-size: 12px; line-height: 16px; color: rgb(55, 53, 47); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                {link}</div>
+                        </div>
+                    </div>
+                    <div style="flex: 1 1 180px; display: block; position: relative;">
+                        <div style="position: absolute; inset: 0px;">
+                            <div style="width: 100%; height: 100%;"><img
+                                    src="{thumbnail}"
+                                    style="display: block; object-fit: cover; border-radius: 1px; width: 100%; height: 100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a></div>
+    </div>
+</div>
+"""
+            )
+
         else:
             print("Unsupported type: " + content.type)
 
@@ -117,6 +170,7 @@ def to_markdown(page_id, ignore):
 
     # Download the cover and add it to the frontmatter.
     raw_page = page.get()
+    page.get("format.page_cover")
     if 'format' in raw_page and 'page_cover' in raw_page['format']:
         page_cover_url = raw_page['format']['page_cover']
         cover_image_name = download_file(page_cover_url, dest_path)
@@ -127,7 +181,9 @@ def to_markdown(page_id, ignore):
     metas = metas + child_metas
 
     if 'date' not in metas:
-        date_raw = requests.head(f'https://www.notion.so/{page_id}').headers['last-modified']
+        date_raw = requests.head(f'https://www.notion.so/{page_id}').headers[
+            'last-modified'
+        ]
         date = datetime.datetime.strptime(date_raw, "%a, %d %b %Y %H:%M:%S GMT")
         datestring = datetime.datetime.strftime(date, "%Y-%m-%d")
         metas.append(f"date: '{datestring}'")

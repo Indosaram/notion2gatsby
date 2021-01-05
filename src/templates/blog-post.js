@@ -36,6 +36,8 @@ export default function BlogPost({ data, pageContext, location }) {
         </Link>
         <article>
           <h1>{post.frontmatter.title}</h1>
+          <h3>{post.frontmatter.date}</h3>
+          {image}
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </article>        
       </main>
