@@ -5,7 +5,7 @@ module.exports = {
     title: `Arnaud Valensi`,
     description: `Arnaud Valensi's personal blog`,
     author: `Arnaud Valensi`,
-    siteUrl: `https://arnaudvalensi.github.io`, // No trailing slash allowed.
+    siteUrl: `https://Indosaram.github.io/TEST_BLOG`, // No trailing slash allowed.
     social: {
       twitter: `ArnaudValensi`,
     },
