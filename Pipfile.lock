@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ee86d8a45d4db03da33aa03a19fd49424ef2b87cc03892d433ed4e8c3d4bef92"
+            "sha256": "c60c647eafb5b19fbdb68c029618d11b5ad56fe544c9615bfc9d2a45bf14d770"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -76,11 +76,11 @@
         },
         "notion": {
             "hashes": [
-                "sha256:96b1e5ed495b6b0d6ace21fbf49c409d3c46be710d08cecaee12cb364b8d0049",
-                "sha256:d6ad33fab45fbf31bfe5186a3b0dd50dc88893a252f4ba45f4ddf6a8a467237f"
+                "sha256:2186231e49fee0bd651426758eed39238080c68794d831c7dfa26280460e2c33",
+                "sha256:84a3c62a882b7c5686bd571ee13279cdce883f34cfcbf7af1235491389a6394b"
             ],
             "index": "pypi",
-            "version": "==0.0.25"
+            "version": "==0.0.27"
         },
         "pillow": {
             "hashes": [
