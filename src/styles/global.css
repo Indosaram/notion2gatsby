@@ -46,9 +46,12 @@ pre[class*="language-"] {
 }
 
 /* Checkbox list */
-ul {
-  margin-left: 0;
+ul.task-list {
+  margin-left: 0.2em;
 }
 li.task-list-item {
   list-style-type: none;
+}
+input[type=checkbox] {
+  margin-right: 0.2em
 }
