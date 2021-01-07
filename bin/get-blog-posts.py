@@ -94,7 +94,10 @@ def process_block(block, text_prefix=''):
             text = text + text_prefix + f'* {content.title}\n'
             was_bulleted_list = True
         elif content.type == 'to_do':
-            text = text + text_prefix + f'* {content.title}\n'
+            if content.checked:
+                text = text + text_prefix + f'- [ ] {content.title}\n'
+            else:
+                text = text + text_prefix + f'- [X] {content.title}\n'
         elif content.type == 'divider':
             text = text + f'---\n'
         elif content.type == 'text':
