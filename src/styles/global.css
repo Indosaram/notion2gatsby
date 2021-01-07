@@ -44,3 +44,11 @@ pre[class*="language-"] {
   font-variant-ligatures: none;
   font-feature-settings: normal;
 }
+
+/* Checkbox list */
+ul {
+  margin-left: 0;
+}
+li.task-list-item {
+  list-style-type: none;
+}

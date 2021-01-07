@@ -38,7 +38,7 @@ def download_file(file_url, destination_folder, block_id=None):
     if block_id is not None and 'amazonaws' in file_url:
         file_url = (
             'https://www.notion.so/image/'
-            + file_url.replace('://','%3A%2F%2F').replace('/','%2F')
+            + file_url.replace('://', '%3A%2F%2F').replace('/', '%2F')
             + f'?table=block&id={block_id}&userId={NOTION_USER_ID}&cache=v2'
         )
 
@@ -68,15 +68,18 @@ def download_file(file_url, destination_folder, block_id=None):
 
 
 def process_block(block, text_prefix=''):
-    was_bulleted_list = False
+    was_list = False
     text = ''
     metas = []
+    number = 1
 
     for content in block.children:
         # Close the bulleted list.
-        if was_bulleted_list and content.type != 'bulleted_list':
-            text = text + '\n'
-            was_bulleted_list = False
+        if was_list:
+            if content.type not in ['bulleted_list', 'numbered_list', 'to_do']:
+                text = text + '\n'
+                was_list = False
+                number = 1
 
         if content.type == 'header':
             text = text + f'# {content.title}\n\n'
@@ -92,12 +95,17 @@ def process_block(block, text_prefix=''):
             text = text + text_prefix + f'![{image_name}]({image_name})\n\n'
         elif content.type == 'bulleted_list':
             text = text + text_prefix + f'* {content.title}\n'
-            was_bulleted_list = True
+            was_list = True
+        elif content.type == 'numbered_list':
+            text = text + text_prefix + f'{number}. {content.title}\n'
+            was_list = True
+            number += 1
         elif content.type == 'to_do':
             if content.checked:
                 text = text + text_prefix + f'- [X] {content.title}\n'
             else:
                 text = text + text_prefix + f'- [ ] {content.title}\n'
+            was_list = True
         elif content.type == 'divider':
             text = text + f'---\n'
         elif content.type == 'text':
@@ -222,7 +230,7 @@ if __name__ == "__main__":
         file_name = slug + '.md'
         file_path = os.path.join(dest_path, file_name)
 
-        file = open(file_path, 'w')
+        file = open(file_path, 'w', -1, 'utf-8')
         file.write(markdown)
         file.close()
         print('-> Imported "' + file_name + '"')
