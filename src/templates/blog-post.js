@@ -11,6 +11,9 @@ export default function BlogPost({ data, pageContext, location }) {
   const image = post.frontmatter.image
     ? post.frontmatter.image.childImageSharp.resize
     : null
+  const hero = image && image.src
+    ? `${data.site.siteMetadata.siteUrl}${image.src}`
+    : `${data.site.siteMetadata.siteUrl}${defaultOpenGraphImage}`
 
   return (
     <Layout>
@@ -37,7 +40,7 @@ export default function BlogPost({ data, pageContext, location }) {
         <article>
           <h1>{post.frontmatter.title}</h1>
           <h3>{post.frontmatter.date}</h3>
-          <img src={image.src}></img>
+          <img src={hero}></img>
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </article>        
       </main>
