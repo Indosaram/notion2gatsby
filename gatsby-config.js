@@ -10,6 +10,7 @@ module.exports = {
       twitter: `ArnaudValensi`,
     },
   },
+  pathPrefix: "TEST_BLOG",
   plugins: [
     {
       resolve: `gatsby-plugin-google-analytics`,
