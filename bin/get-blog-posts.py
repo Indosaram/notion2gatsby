@@ -9,7 +9,7 @@ import sys
 from slugify import slugify
 
 from notion.client import NotionClient
-
+from PIL import Image
 
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
 NOTION_USER_ID = os.getenv('NOTION_USER_ID')
@@ -70,6 +70,13 @@ def download_file(file_url, destination_folder, block_id=None):
     final_file_path = os.path.join(destination_folder, final_file_name)
 
     os.rename(tmp_file_path, final_file_path)
+
+    if ext == 'x-icon':
+        img = Image.open(final_file_path)
+        final_file_name = final_file_name.replace('x-icon', 'png')
+        img.save(os.path.join(destination_folder, final_file_name))
+        img.close()
+        os.remove(final_file_path)
 
     return final_file_name
 
@@ -166,7 +173,7 @@ def process_block(block, text_prefix=''):
                 </div>
             </a></div>
     </div>
-</div>
+</div>\n
 """
             )
 
