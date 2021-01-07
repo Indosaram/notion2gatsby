@@ -11,9 +11,7 @@ export default function BlogPost({ data, pageContext, location }) {
   const image = post.frontmatter.image
     ? post.frontmatter.image.childImageSharp.resize
     : null
-  const hero = image && image.src
-    ? `${data.site.siteMetadata.siteUrl}${image.src}`
-    : `${data.site.siteMetadata.siteUrl}${defaultOpenGraphImage}`
+  const hero = data.site.siteMetadata.siteUrl && image.src
 
   return (
     <Layout>
@@ -94,6 +92,17 @@ export const query = graphql`
           }
         }
       }
-    }
+    } 
+    site {
+      siteMetadata {
+        title
+        siteUrl
+        description
+        author
+        social {
+          twitter
+        }
+      }
+    }   
   }
 `
