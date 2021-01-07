@@ -153,7 +153,7 @@ def process_block(block, text_prefix=''):
             text = (
                 text
                 + f"""
-<div style="width: 100%; max-width: 644px; margin-top: 4px; margin-bottom: 4px;">
+<div class="bookmark">
     <div>
         <div style="display: flex;"><a target="_blank" rel="noopener noreferrer"
                 href="{link}"

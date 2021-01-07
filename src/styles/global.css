@@ -55,3 +55,9 @@ li.task-list-item {
 input[type=checkbox] {
   margin-right: 0.2em
 }
+
+/* Bookmark */
+div.bookmark {
+  width: 100%;
+  margin-bottom: 2em;
+}
