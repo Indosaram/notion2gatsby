@@ -12,7 +12,7 @@ export default function BlogPost({ data, pageContext, location }) {
   const image = post.frontmatter.image
     ? post.frontmatter.image.childImageSharp.resize
     : null
-  const hero = data.site.siteMetadata.siteUrl && withPrefix("/") && image.src
+  const hero = data.site.siteMetadata.siteUrl && withPrefix(image.src)
 
   return (
     <Layout>
