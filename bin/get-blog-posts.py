@@ -36,10 +36,16 @@ ignore_root = True
 
 def download_file(file_url, destination_folder, block_id=None):
     if block_id is not None:
-        if 'amazonaws' in file_url or 'page-cover' in file_url:
+        if 'amazonaws' in file_url:
             file_url = (
                 'https://www.notion.so/image/'
                 + file_url.replace('://', '%3A%2F%2F').replace('/', '%2F')
+                + f'?table=block&id={block_id}&userId={NOTION_USER_ID}&cache=v2'
+            )
+        elif '/images/page-cover' in file_url:
+            file_url = (
+                'https://www.notion.so/image/https%3A%2F%2Fwww.notion.so'
+                + file_url.replace('/', '%2F')
                 + f'?table=block&id={block_id}&userId={NOTION_USER_ID}&cache=v2'
             )
 
