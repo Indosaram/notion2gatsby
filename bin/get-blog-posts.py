@@ -35,6 +35,10 @@ ignore_root = True
 
 
 def download_file(file_url, destination_folder, block_id=None):
+    if file_url is None:
+        print('Input file is wrong')
+        return
+
     if block_id is not None:
         if 'X-Amz-Algorithm' in file_url:
             pass
