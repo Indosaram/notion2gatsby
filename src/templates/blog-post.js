@@ -4,6 +4,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import { rhythm } from "../utils/typography"
 import { css } from "@emotion/core"
+import { withPrefix } from "gatsby"
 
 export default function BlogPost({ data, pageContext, location }) {
   const { previousPost, nextPost } = pageContext
@@ -11,7 +12,7 @@ export default function BlogPost({ data, pageContext, location }) {
   const image = post.frontmatter.image
     ? post.frontmatter.image.childImageSharp.resize
     : null
-  const hero = data.site.siteMetadata.siteUrl && image.src
+  const hero = data.site.siteMetadata.siteUrl && withPrefix("/") && image.src
 
   return (
     <Layout>
@@ -95,14 +96,8 @@ export const query = graphql`
     } 
     site {
       siteMetadata {
-        title
         siteUrl
-        description
-        author
-        social {
-          twitter
-        }
       }
-    }   
+    }
   }
 `
