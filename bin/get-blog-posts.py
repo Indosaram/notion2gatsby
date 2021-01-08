@@ -159,16 +159,16 @@ def process_block(block, text_prefix=''):
                 href="{link}"
                 style="display: block; color: inherit; text-decoration: none; flex-grow: 1; min-width: 0px;">
                 <div class="" role="button" tabindex="0"
-                    style="user-select: none; transition: background 20ms ease-in 0s; cursor: pointer; width: 100%; display: flex; flex-wrap: wrap-reverse; align-items: stretch; text-align: left; overflow: hidden; border: 1px solid rgba(55, 53, 47, 0.16); border-radius: 3px; position: relative; color: inherit; fill: inherit;">
+                    style="user-select: none; transition: background 20ms ease-in 0s; cursor: pointer; width: 100%; display: flex; flex-wrap: wrap-reverse; align-items: stretch; text-align: left; overflow: hidden; border: 1px solid; border-radius: 3px; position: relative; color: inherit; fill: inherit;">
                     <div style="flex: 4 1 180px; padding: 12px 14px 14px; overflow: hidden; text-align: left;">
                         <div
-                            style="font-size: 14px; line-height: 20px; color: rgb(55, 53, 47); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 24px; margin-bottom: 2px;">
+                            style="font-size: 14px; line-height: 20px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 24px; margin-bottom: 2px;">
                             {content.title}</div>
                         <div style="display: flex; margin-top: 6px;"><img
                                 src="{icon}"
                                 style="width: 16px; height: 16px; min-width: 16px; margin-right: 6px;">
                             <div
-                                style="font-size: 12px; line-height: 16px; color: rgb(55, 53, 47); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                style="font-size: 12px; line-height: 16px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 {link}</div>
                         </div>
                     </div>

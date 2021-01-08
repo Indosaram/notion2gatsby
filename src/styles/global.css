@@ -60,4 +60,6 @@ input[type=checkbox] {
 div.bookmark {
   width: 100%;
   margin-bottom: 2em;
+  color: var(--textNormal);
+  border-color: var(--textNormal);
 }
