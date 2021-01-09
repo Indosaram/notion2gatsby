@@ -77,13 +77,6 @@ def download_file(file_url, destination_folder, block_id=None):
 
     os.rename(tmp_file_path, final_file_path)
 
-    if ext == 'x-icon':
-        img = Image.open(final_file_path)
-        final_file_name = final_file_name.replace('x-icon', 'png')
-        img.save(os.path.join(destination_folder, final_file_name))
-        img.close()
-        os.remove(final_file_path)
-
     return final_file_name
 
 
@@ -147,11 +140,6 @@ def process_block(block, text_prefix=''):
             text = text + f'[{content.title}](/blog/{subpage_slug})\n\n'
         elif content.type == 'bookmark':
             thumbnail = download_file(content.bookmark_cover, dest_path)
-            icon = (
-                download_file(content.bookmark_icon, dest_path)
-                if content.bookmark_icon is not None
-                else None
-            )
             link = content.link
 
             text = (
@@ -167,8 +155,7 @@ def process_block(block, text_prefix=''):
                         <div
                             style="font-size: 14px; line-height: 20px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 24px; margin-bottom: 2px;">
                             {content.title}</div>
-                        <div style="display: flex; margin-top: 6px;"><img src="{icon}"
-                                style="width: 16px; height: 16px; min-width: 16px; margin-right: 6px;">
+                        <div style="display: flex; margin-top: 6px;">
                             <div
                                 style="font-size: 12px; line-height: 16px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 {link}</div>
