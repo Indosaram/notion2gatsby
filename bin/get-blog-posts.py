@@ -62,7 +62,7 @@ def download_file(file_url, destination_folder, block_id=None):
     tmp_file_name = f'tmp.{ext}'
     tmp_file_path = os.path.join(destination_folder, tmp_file_name)
 
-    print(f"-> Downloading {file_url}")
+    print(f"-> Downloading {file_url}", end='')
 
     h = hashlib.sha1()
     # open the file to write as binary - replace 'wb' with 'w' for text files
@@ -77,7 +77,12 @@ def download_file(file_url, destination_folder, block_id=None):
 
     os.rename(tmp_file_path, final_file_path)
 
-    return final_file_name
+    if isinstance(Image.open(final_file_path), Exception):
+        print(',b but failed')
+        return None
+    else:
+        print(f' as {final_file_path}')
+        return final_file_name
 
 
 def process_block(block, text_prefix=''):
