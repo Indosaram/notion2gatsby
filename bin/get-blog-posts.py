@@ -79,7 +79,8 @@ def download_file(file_url, destination_folder, block_id=None):
 
     if ext == 'x-icon':
         img = Image.open(final_file_path)
-        final_file_name = final_file_name.replace('x-icon', 'png')
+        img = img.convert('RGB')
+        final_file_name = final_file_name.replace('x-icon', 'jpg')
         img.save(os.path.join(destination_folder, final_file_name))
         img.close()
         os.remove(final_file_path)
@@ -136,6 +137,10 @@ def process_block(block, text_prefix=''):
                 metas.append(f"{key}: '{value}'")
             else:
                 text = text + text_prefix + f'{content.title}\n\n'
+        elif content.type == 'table_of_contents':
+            text = text# + 'toc\n'
+        elif content.type == 'quote':
+            text = text + f'> {content.title}\n'
         elif content.type == 'video':
             text = text + f'`video: {content.source}`\n\n'
         elif content.type == 'page':
@@ -155,8 +160,7 @@ def process_block(block, text_prefix=''):
                 + f"""
 <div class="bookmark">
     <div>
-        <div style="display: flex;"><a target="_blank" rel="noopener noreferrer"
-                href="{link}"
+        <div style="display: flex;"><a target="_blank" rel="noopener noreferrer" href="{link}"
                 style="display: block; color: inherit; text-decoration: none; flex-grow: 1; min-width: 0px;">
                 <div class="" role="button" tabindex="0"
                     style="user-select: none; transition: background 20ms ease-in 0s; cursor: pointer; width: 100%; display: flex; flex-wrap: wrap-reverse; align-items: stretch; text-align: left; overflow: hidden; border: 1px solid; border-radius: 3px; position: relative; color: inherit; fill: inherit;">
@@ -164,8 +168,7 @@ def process_block(block, text_prefix=''):
                         <div
                             style="font-size: 14px; line-height: 20px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 24px; margin-bottom: 2px;">
                             {content.title}</div>
-                        <div style="display: flex; margin-top: 6px;"><img
-                                src="{icon}"
+                        <div style="display: flex; margin-top: 6px;"><img src="{icon}"
                                 style="width: 16px; height: 16px; min-width: 16px; margin-right: 6px;">
                             <div
                                 style="font-size: 12px; line-height: 16px; color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -174,8 +177,7 @@ def process_block(block, text_prefix=''):
                     </div>
                     <div style="flex: 1 1 180px; display: block; position: relative;">
                         <div style="position: absolute; inset: 0px;">
-                            <div style="width: 100%; height: 100%;"><img
-                                    src="{thumbnail}"
+                            <div style="width: 100%; height: 100%;"><img src="{thumbnail}"
                                     style="display: block; object-fit: cover; border-radius: 1px; width: 100%; height: 100%;">
                             </div>
                         </div>
@@ -227,7 +229,7 @@ def to_markdown(page_id, ignore):
         metas.append(f"date: '{datestring}'")
 
     if 'description' not in metas:
-        description = text[:20].replace('\n', '')
+        description = text[:100].replace('\n', '')
         metas.append(f"description: '{description}'")
 
     metaText = '---\n' + '\n'.join(metas) + '\n---\n'
