@@ -79,8 +79,7 @@ def download_file(file_url, destination_folder, block_id=None):
 
     if ext == 'x-icon':
         img = Image.open(final_file_path)
-        img = img.convert('RGB')
-        final_file_name = final_file_name.replace('x-icon', 'jpg')
+        final_file_name = final_file_name.replace('x-icon', 'png')
         img.save(os.path.join(destination_folder, final_file_name))
         img.close()
         os.remove(final_file_path)
