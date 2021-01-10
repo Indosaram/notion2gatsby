@@ -1,11 +1,3 @@
-# [arnaudvalensi.github.io](https://arnaudvalensi.github.io/)
-
-My personal blog. Powered by [GatsbyJS](https://www.gatsbyjs.com/) and [Notion](https://www.notion.so/)
-
-This blog uses content from notes made in [notion.so](https://www.notion.so/) and automatically deploys on github pages.
-
-You can read my blog post about this, [here](https://arnaudvalensi.github.io/blog/making-a-blog-using-notion-gatsby-and-github-pages/)
-
 ## To run locally
 
 Copy the file `.env.example` to `.env` and fill the `NOTION_TOKEN` and `NOTION_ROOT_PAGE_ID` variable.
