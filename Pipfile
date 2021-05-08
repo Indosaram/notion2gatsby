@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-notion = "==0.0.27"
-Pillow = "==8.0.1"
+notion = "==0.0.28"
+Pillow = ">=8.1.2"
 
 [requires]
 python_version = "3.8"
