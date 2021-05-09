@@ -63,22 +63,6 @@ function SEO({ description, lang, image, meta, keywords, title, pathname }) {
                 property: "og:image:height",
                 content: (image && image.height) || 630,
               },
-              {
-                name: `twitter:card`,
-                content: `summary_large_image`,
-              },
-              {
-                name: `twitter:creator`,
-                content: `@${data.site.siteMetadata.social.twitter}`,
-              },
-              {
-                name: `twitter:title`,
-                content: `${title} | ${data.site.siteMetadata.title}`,
-              },
-              {
-                name: `twitter:description`,
-                content: metaDescription,
-              },
             ]
               .concat(
                 keywords.length > 0
@@ -123,9 +107,6 @@ const detailsQuery = graphql`
         siteUrl
         description
         author
-        social {
-          twitter
-        }
       }
     }
   }
