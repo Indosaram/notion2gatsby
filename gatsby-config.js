@@ -2,15 +2,12 @@ const path = require(`path`)
 
 module.exports = {
   siteMetadata: {
-    title: `Arnaud Valensi`,
-    description: `Arnaud Valensi's personal blog`,
-    author: `Arnaud Valensi`,
-    siteUrl: `https://Indosaram.github.io`, // No trailing slash allowed.
-    social: {
-      twitter: `ArnaudValensi`,
-    },
+    title: `Notion2Gatsby`,
+    description: `Transform any Notion pages to Gatsby static sites`,
+    author: `Indosaram`,
+    siteUrl: `https://Indosaram.github.io`,
   },
-  pathPrefix: "TEST_BLOG",
+  pathPrefix: "notion2gatsby-template",
   plugins: [
     {
       resolve: `gatsby-plugin-google-analytics`,

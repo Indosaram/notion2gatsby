@@ -1,3 +1,5 @@
+> Disclaimer : This repository is forked version from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). This is not being maintained, so I modified some codes to make it work.
+
 ## To run locally
 
 Copy the file `.env.example` to `.env` and fill the `NOTION_TOKEN` and `NOTION_ROOT_PAGE_ID` variable.
