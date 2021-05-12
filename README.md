@@ -1,6 +1,20 @@
+# Notion2Gatsby
+
 > Disclaimer : This repository is forked version from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). This is not being maintained, so I modified some codes to make it work.
 
-## To run locally
+## How to use
+
+### Setup Notion page
+
+### Create repository
+
+
+
+
+
+## Development
+
+### To run locally
 
 Copy the file `.env.example` to `.env` and fill the `NOTION_TOKEN` and `NOTION_ROOT_PAGE_ID` variable.
 
@@ -14,7 +28,9 @@ Then you can do `yarn import-notion-posts` to import post from notion to `./cont
 
 Finally, you can do `yarn develop` to run the blog locally.
 
-## To manually deploy to github pages
+
+
+### To manually deploy to github pages
 
 `yarn import-notion-posts` to import the posts from notion.
 
@@ -24,7 +40,9 @@ To deploy on github pages, you have to use your username as repository name. See
 
 If you don't want to deploy to github pages, you can host the content of the `public` directory anywhere you want.
 
-## Automatically deploy to github pages
+
+
+### Automatically deploy to github pages
 
 If you push this repository to github, it will use the [github action](https://github.com/features/actions) stored in `.github/workflows/deploy.yml` and automatically import your post from notion and build the blog.
 

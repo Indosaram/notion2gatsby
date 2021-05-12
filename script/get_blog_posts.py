@@ -19,7 +19,7 @@ if NOTION_TOKEN is None:
     sys.exit("The NOTION_TOKEN is missing, see the readme on how to set it.")
 if NOTION_ROOT_PAGE_ID is None:
     sys.exit(
-        "The NOTION_ROOT_PAGE_ID is missing, see the readme on how to set it."
+        "The NOTION_ROOT_PAGE_ID is5 missing, see the readme on how to set it."
     )
 
 client = NotionClient(token_v2=NOTION_TOKEN)

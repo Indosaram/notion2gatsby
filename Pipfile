@@ -10,4 +10,4 @@ notion = "==0.0.28"
 Pillow = ">=8.1.2"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

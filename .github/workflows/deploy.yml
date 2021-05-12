@@ -32,7 +32,7 @@ jobs:
           NOTION_ROOT_PAGE_ID: ${{ secrets.NOTION_ROOT_PAGE_ID }}
         run: |
           pipenv install
-          pipenv run python ./bin/get-blog-posts.py
+          pipenv run python ./script/get_blog_posts.py
           yarn install
           yarn build
 
