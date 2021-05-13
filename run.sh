@@ -1,3 +1,5 @@
+python3 -m repo_generator.main
+
 REPO=$(jq -r '.github_username' params.json)/$(jq -r '.blog_title' params.json)
 
 gh secret set NOTION_USER_ID -b$(jq -r '.notion_user_id' params.json) --repo="$REPO"

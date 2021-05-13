@@ -57,4 +57,4 @@ if __name__ == '__main__':
         else:
             print('Unsupported command.\n')
 
-    input('💨 Press enter to exit...')
+    print('💨 Repository creation succeeds')
