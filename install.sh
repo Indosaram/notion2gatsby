@@ -15,3 +15,5 @@ gh auth login
 # Install dependencies via pipenv and run setup script
 pip3 install -r requirements.txt
 python3 -m repo_generator.main
+
+bash ./gh_secret.sh

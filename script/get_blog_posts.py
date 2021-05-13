@@ -13,13 +13,13 @@ from PIL import Image
 
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
 NOTION_USER_ID = os.getenv('NOTION_USER_ID')
-NOTION_ROOT_PAGE_ID = os.getenv('NOTION_ROOT_PAGE_ID')
+NOTION_ROOT_PAGE_ID = os.getenv('NOTION_ROOT_URL').split('-')[-1]
 
 if NOTION_TOKEN is None:
     sys.exit("The NOTION_TOKEN is missing, see the readme on how to set it.")
 if NOTION_ROOT_PAGE_ID is None:
     sys.exit(
-        "The NOTION_ROOT_PAGE_ID is5 missing, see the readme on how to set it."
+        "The NOTION_ROOT_PAGE_ID is missing, see the readme on how to set it."
     )
 
 client = NotionClient(token_v2=NOTION_TOKEN)
@@ -135,7 +135,7 @@ def process_block(block, text_prefix=''):
             else:
                 text = text + text_prefix + f'{content.title}\n\n'
         elif content.type == 'table_of_contents':
-            text = text# + 'toc\n'
+            text = text  # + 'toc\n'
         elif content.type == 'quote':
             text = text + f'> {content.title}\n'
         elif content.type == 'video':

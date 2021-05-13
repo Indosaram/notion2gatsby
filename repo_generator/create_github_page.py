@@ -38,7 +38,6 @@ class InitGithubPage:
             process = subprocess.run(
                 command, shell=shell, check=True, capture_output=True
             )
-            print(process)
         except subprocess.CalledProcessError as e:
             print(e)
             raise e
@@ -82,21 +81,6 @@ class InitGithubPage:
 
         return True
 
-    def _set_notion_token(self):
-        NOTION_USER_ID = self.param["notion_user_id"]
-        NOTION_TOKEN = self.param['notion_token']
-        NOTION_ROOT_PAGE_ID = self.param['notion_root_page_id']
-
-        self._execute(f'cd {self.path_to_repo}')
-        secrets = {
-            "NOTION_USER_ID": NOTION_USER_ID,
-            "NOTION_TOKEN": NOTION_TOKEN,
-            "NOTION_ROOT_PAGE_ID": NOTION_ROOT_PAGE_ID,
-        }
-
-        for key, val in secrets.items():
-            self._execute(f"bash gh-secret.sh {key} {val}")
-
     def finalize(self):
         git_commands = [
             'git add .',
@@ -109,7 +93,6 @@ class InitGithubPage:
         for command in git_commands:
             self._execute(command)
 
-        self._set_notion_token()
         self._execute('git push --set-upstream origin main')
 
         os.chdir('..')
