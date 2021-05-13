@@ -81,16 +81,11 @@ class InitGithubPage:
         NOTION_TOKEN = self.param['notion_token']
         NOTION_ROOT_PAGE_ID = self.param['notion_root_page_id']
 
-        # For local run
-        with open('.env', 'w') as f:
-            f.write(
-                f'NOTION_TOKEN = {NOTION_TOKEN}\nNOTION_ROOT_PAGE_ID = {NOTION_ROOT_PAGE_ID}'
-            )
         os.chdir(self.path_to_repo)
         git_commands = [
-            f'gh secret set NOTION_USER_ID -b"{NOTION_USER_ID}"',
-            f'gh secret set NOTION_TOKEN -b"{NOTION_TOKEN}"',
-            f'gh secret set NOTION_ROOT_PAGE_ID -b"{NOTION_ROOT_PAGE_ID}"',
+            f'gh secret set NOTION_USER_ID -b "{NOTION_USER_ID}"',
+            f'gh secret set NOTION_TOKEN -b "{NOTION_TOKEN}"',
+            f'gh secret set NOTION_ROOT_PAGE_ID -b "{NOTION_ROOT_PAGE_ID}"',
         ]
 
         for command in git_commands:

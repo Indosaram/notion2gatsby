@@ -7,7 +7,7 @@ module.exports = {
     author: `Indosaram`,
     siteUrl: `https://Indosaram.github.io`,
   },
-  pathPrefix: "notion2gatsby-template",
+  pathPrefix: "notion2gatsby",
   plugins: [
     {
       resolve: `gatsby-plugin-google-analytics`,
