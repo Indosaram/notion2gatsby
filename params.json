@@ -1,10 +1,10 @@
 {
-    "template_repo" : "https://github.com/Indosaram/notion2gatsby-template.git",
+    "template_repo" : "https://github.com/Indosaram/notion2gatsby.git",
     "blog_title" : "MY BLOG",
     "description" : "THIS IS MY BLOG",
     "author" : "TEST",
     "github_username" : "MY_USERNAME",
-    "target_dir" : "C:\\gh-pages",
+    "target_dir" : "/Users/indo/code",
     "notion_token" : "MY_NOTION_TOKEN",
     "notion_root_url" : "https://www.notion.so/MY_PAGE_URL",
     "google_analytics" : "U-XXX",

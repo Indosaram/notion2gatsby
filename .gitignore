@@ -1,6 +1,7 @@
 content/blog
 .vscode
 gh-pages
+*/__pycache__/*
 
 # Logs
 logs

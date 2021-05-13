@@ -11,21 +11,35 @@ class InitGithubPage:
         if 'target_dir' not in param.keys():
             param['target_dir'] = os.getcwd()
 
-            print('❗ WARNING : Target directory is not specified.' + 'Create new directory in this path.')
+            print(
+                '❗ WARNING : Target directory is not specified.'
+                + 'Create new directory in this path.'
+            )
 
         if not os.path.exists(param['target_dir']):
             os.mkdir(param['target_dir'])
 
     def _get_github_username(self):
-        self.username = self._execute('git config --global user.name').replace(
-            '\n', ''
-        )
+        try:
+            username = self._execute('git config --global user.name')
+        except FileNotFoundError:
+            username_ = input(
+                "WARNING: You have not setup your Github username. Enter yours (ex: Indosaram): "
+            )
+            username = self._execute(
+                f'git config --global user.name "{username_}"'
+            )
 
-    def _execute(self, command, shell=False):
+        self.username = username.replace('\n', '')
+
+    def _execute(self, command, shell=True):
         print('✔', command)
         process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=shell)
         stdout = process.communicate()[0]
-        result = stdout.decode('cp949')
+        try:
+            result = stdout.decode('cp949')
+        except UnicodeDecodeError:
+            result = None
 
         return result
 
@@ -38,7 +52,9 @@ class InitGithubPage:
         self.repository_name = repository_name
 
         if os.path.exists(self.path_to_repo):
-            print('❌ Error : This repo name already exists. Check again your `blog_title` key in the .json file.')
+            print(
+                '❌ Error : This repo name already exists. Check again your `blog_title` key in the .json file.'
+            )
             return False
 
         self.target_dir = target_dir
@@ -48,9 +64,11 @@ class InitGithubPage:
         template_name = template_repo.split('/')[-1].split('.')[0]
         os.rename(template_name, repository_name)
         os.chdir(self.path_to_repo)
+        print(f"✔ cd {self.path_to_repo}")
 
         git_commands = [
-            'git remote remove origin',
+            "rm -rf .git",
+            "git init -q",
             f'gh repo create -y --public {repository_name}',
         ]
         for command in git_commands:
@@ -77,16 +95,13 @@ class InitGithubPage:
             self._execute(command)
 
     def finalize(self):
-        repository_name = self.param['blog_title']
         git_commands = [
-            'git add index.html',
-            'git checkout -b gh-pages',
-            'git push -u origin gh-pages',
-            'git checkout main',
-            'git init',
             'git add .',
             'git commit -m "first commit"',
-            f'git remote add origin https://github.com/{self.username}/{repository_name}.git',
+            'git branch -M main',
+            'git push -u origin main',
+            'git checkout -b gh-pages',
+            'git push -u origin gh-pages',
         ]
         for command in git_commands:
             self._execute(command)

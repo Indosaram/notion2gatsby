@@ -1,7 +1,7 @@
 import json
 import sys
 
-from create_github_page import InitGithubPage
+from .create_github_page import InitGithubPage
 
 
 if __name__ == '__main__':
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     initiator = InitGithubPage(param)
 
     while True:
-        mode = input('Choose command to execute : Create(c) / Update(u) `35')
+        mode = input('Choose command to execute : Create(c) / Update(u) ')
         if mode in ['c', 'C']:
             if not initiator.create_blog():
                 break

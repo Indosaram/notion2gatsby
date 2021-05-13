@@ -2,6 +2,35 @@
 
 > Disclaimer : This repository is forked version from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). This is not being maintained, so I modified some codes to make it work.
 
+
+
+## Setup
+
+Python >= 3.9
+
+You can try it with your own python version. If so, you may want to edit `Pipfile`'s `python_version` entry with your python version.
+
+You need Github account and SSH keys.
+
+SSH keys
+
+```bash
+ssh-keygen
+
+```
+
+
+
+A command below will install Github CLI and make you login to Github via CLI. After that, interactive shell will prompt you to generate a new repo for your Notion2Gatsby.
+
+```bash
+bash ./install.sh
+```
+
+
+
+
+
 ## How to use
 
 ### Setup Notion page
