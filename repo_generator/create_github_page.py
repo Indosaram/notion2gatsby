@@ -77,6 +77,7 @@ class InitGithubPage:
         return True
 
     def _set_notion_token(self):
+        NOTION_USER_ID = self.param["notion_user_id"]
         NOTION_TOKEN = self.param['notion_token']
         NOTION_ROOT_PAGE_ID = self.param['notion_root_page_id']
 
@@ -87,6 +88,7 @@ class InitGithubPage:
             )
         os.chdir(self.path_to_repo)
         git_commands = [
+            f'gh secret set NOTION_TOKEN -b"{NOTION_USER_ID}"',
             f'gh secret set NOTION_TOKEN -b"{NOTION_TOKEN}"',
             f'gh secret set NOTION_ROOT_PAGE_ID -b"{NOTION_ROOT_PAGE_ID}"',
         ]
@@ -153,7 +155,6 @@ class InitGithubPage:
             '    description: ',
             '    author: ',
             '    siteUrl: ',
-            '      twitter: ',
             '  pathPrefix: ',
         ]
 
@@ -162,7 +163,6 @@ class InitGithubPage:
             param['description'],
             param['author'],
             param['siteUrl'],
-            param['twitter'],
             param['blog_title'],
         ]
 

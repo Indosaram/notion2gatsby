@@ -74,3 +74,5 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
+# Secret file
+params.json
