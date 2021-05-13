@@ -34,10 +34,17 @@ class InitGithubPage:
 
     def _execute(self, command, shell=True):
         print('✔', command)
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=shell)
-        stdout = process.communicate()[0]
         try:
-            result = stdout.decode('cp949')
+            process = subprocess.run(
+                command, shell=shell, check=True, capture_output=True
+            )
+            print(process)
+        except subprocess.CalledProcessError as e:
+            print(e)
+            raise e
+
+        try:
+            result = process.stdout.decode('cp949')
         except UnicodeDecodeError:
             result = None
 
@@ -60,9 +67,8 @@ class InitGithubPage:
         self.target_dir = target_dir
 
         os.chdir(target_dir)
-        self._execute(f'git clone {template_repo}')
-        template_name = template_repo.split('/')[-1].split('.')[0]
-        os.rename(template_name, repository_name)
+        print(f"✔ cd {target_dir}")
+        self._execute(f'git clone {template_repo} {repository_name}')
         os.chdir(self.path_to_repo)
         print(f"✔ cd {self.path_to_repo}")
 
@@ -81,15 +87,15 @@ class InitGithubPage:
         NOTION_TOKEN = self.param['notion_token']
         NOTION_ROOT_PAGE_ID = self.param['notion_root_page_id']
 
-        os.chdir(self.path_to_repo)
-        git_commands = [
-            f'gh secret set NOTION_USER_ID -b "{NOTION_USER_ID}"',
-            f'gh secret set NOTION_TOKEN -b "{NOTION_TOKEN}"',
-            f'gh secret set NOTION_ROOT_PAGE_ID -b "{NOTION_ROOT_PAGE_ID}"',
-        ]
+        self._execute(f'cd {self.path_to_repo}')
+        secrets = {
+            "NOTION_USER_ID": NOTION_USER_ID,
+            "NOTION_TOKEN": NOTION_TOKEN,
+            "NOTION_ROOT_PAGE_ID": NOTION_ROOT_PAGE_ID,
+        }
 
-        for command in git_commands:
-            self._execute(command)
+        for key, val in secrets.items():
+            self._execute(f"bash gh-secret.sh {key} {val}")
 
     def finalize(self):
         git_commands = [
