@@ -30,7 +30,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_ROOT_PAGE_ID: ${{ secrets.NOTION_ROOT_URL }}
-          NOTION_ROOT_PAGE_ID: ${{ secrets.NOTION_USER_ID }}
+          NOTION_USER_ID: ${{ secrets.NOTION_USER_ID }}
         run: |
           pipenv install
           pipenv run python ./script/get_blog_posts.py
