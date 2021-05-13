@@ -1,0 +1,3 @@
+SECRET_NAME=$1
+SECRET_VALUE=$2
+gh secret set "$SECRET_NAME" -b "$SECRET_VALUE"
