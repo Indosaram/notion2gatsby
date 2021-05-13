@@ -23,7 +23,6 @@ if NOTION_ROOT_PAGE_ID is None:
     )
 
 client = NotionClient(token_v2=NOTION_TOKEN)
-root_page_id = NOTION_ROOT_PAGE_ID
 
 dest_path = os.path.normpath(
     os.path.join(os.path.dirname(__file__), '..', 'content', 'blog')
@@ -241,7 +240,7 @@ if __name__ == "__main__":
         pass
     os.mkdir(dest_path)
 
-    to_markdown(root_page_id, ignore=ignore_root)
+    to_markdown(NOTION_ROOT_PAGE_ID, ignore=ignore_root)
 
     for slug, markdown in markdown_pages.items():
         file_name = slug + '.md'

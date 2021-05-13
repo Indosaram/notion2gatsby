@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c8186da24aa44286294c0457ab6092454cbb9ec4f96b8765683790e95aae2676"
+            "sha256": "9a736fb46fec88b659e4552e21994362ce9c145805feb20fe2a9f97c8af7fc73"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -75,12 +75,13 @@
             "version": "==2.10"
         },
         "notion": {
+            "editable": true,
+            "git": "https://github.com/c0j0s/notion-py",
             "hashes": [
                 "sha256:a6c511e1055bb69f05d75220f3f6a5de377a52d42ae38186c3138557c6b4942a",
                 "sha256:cc380ea2ffe70ee8d5f19244df910cc79ea56a577ca569553d30f8798f0b5b61"
             ],
-            "index": "pypi",
-            "version": "==0.0.28"
+            "ref": "4fabfb3151129bd2f3123e66341c79d533660db8"
         },
         "pillow": {
             "hashes": [

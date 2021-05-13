@@ -26,7 +26,6 @@ if __name__ == '__main__':
     # then create username.github.io repository first.
     # TODO: Clone base directory of mine
     param['blog_title'] = param['blog_title'].replace(' ', '_')
-    param['notion_root_page_id'] = param['notion_root_url'].split('-')[-1]
     param['siteUrl'] = f"https://{param['github_username']}.github.io"
 
     initiator = InitGithubPage(param)
