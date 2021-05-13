@@ -88,7 +88,7 @@ class InitGithubPage:
             )
         os.chdir(self.path_to_repo)
         git_commands = [
-            f'gh secret set NOTION_TOKEN -b"{NOTION_USER_ID}"',
+            f'gh secret set NOTION_USER_ID -b"{NOTION_USER_ID}"',
             f'gh secret set NOTION_TOKEN -b"{NOTION_TOKEN}"',
             f'gh secret set NOTION_ROOT_PAGE_ID -b"{NOTION_ROOT_PAGE_ID}"',
         ]
