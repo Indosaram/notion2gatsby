@@ -1,25 +1,22 @@
 # Notion2Gatsby
 
-> Disclaimer : This repository is forked version from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). This is not being maintained, so I modified some codes to make it work.
+> Disclaimer : This repository is forked from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). His repo is not being maintained, so I modified some codes to make it work.
+
+Notion❤️Gatsby
+
+Notion2Gatsby is a convenient tool to transform your notion pages to fancy Gatsby site.
+
+Because it is in very early development, so I welcome any kind of suggestion and feature requests.
+
+[Demo](https://indosaram.github.io/notion2gatsby/)
 
 
 
 ## Setup
 
-Python >= 3.9
+### Install dependencies
 
-You can try it with your own python version. If so, you may want to edit `Pipfile`'s `python_version` entry with your python version.
-
-You need Github account and SSH keys.
-
-SSH keys
-
-```bash
-ssh-keygen
-
-```
-
-
+You need a Github account, and attach your SSH key to the account, if you want Notion2Gatsby automatically setup your new repo for hosting Github pages.
 
 A command below will install Github CLI and make you login to Github via CLI. After that, interactive shell will prompt you to generate a new repo for your Notion2Gatsby.
 
@@ -29,62 +26,85 @@ bash ./install.sh
 
 
 
+## Setup `params.json` file
+
+In the root of the repo, you will find `example.json`, as below:
+
+```json
+{
+    "template_repo" : "https://github.com/Indosaram/notion2gatsby.git",
+    "blog_title" : "MY BLOG",
+    "description" : "THIS IS MY BLOG",
+    "author" : "TEST",
+    "github_username" : "MY_USERNAME",
+    "target_dir" : "/Users/indo/code",
+    "notion_user_id": "example@exmple.com",
+    "notion_token" : "MY_NOTION_TOKEN",
+    "notion_root_url" : "https://www.notion.so/MY_PAGE_URL",
+    "google_analytics" : "U-XXX",
+    "google_adsense" : "ca-pub-xx"
+}
+```
+
+| Name             | Description                                                  | Required |
+| ---------------- | ------------------------------------------------------------ | -------- |
+| template_repo    | A url of template repository.                                | *        |
+| blog_title       | A title of your blog, and the repository name. All whitespace will be converted with `_`. | *        |
+| description      | A short description of your blog                             |          |
+| author           | Author name                                                  |          |
+| github_username  | Github username. i.e. Indosaram (Not email address)          | *        |
+| target_dir       | A directory to clone the template repository. You may modify this entry according to your OS running. | *        |
+| notion_user_id   | NOT USED                                                     |          |
+| notion_token     | A secret token to grant Notion2Gatsby access permission to your notion page. | *        |
+| notion_root_url  | A url of root page                                           | *        |
+| google_analytics | Google analytics identifier                                  |          |
+| google_adsense   | Google adsense identifier                                    |          |
+
+If an entry is not marked as 'required', you don't have to fill up that entry. However, you should leave it as it is! Do not delete the entry.
+
+To get your notion token, please refer [this](https://www.redgregory.com/notion/2020/6/15/9zuzav95gwzwewdu1dspweqbv481s5) page.
 
 
-## How to use
 
 ### Setup Notion page
 
+You should make a page structure as following:
+
+```
+root
+├──article
+├──article
+...
+```
+
+![sample](https://user-images.githubusercontent.com/47408490/118105900-f86be480-b417-11eb-85bb-908aeb447587.png)
+
+From root page, Notion2Gatsby will read subpages accordingly. Next, you must share your page via web. Notion2Gatsby only requires read-only permission.
+
+
+
 ### Create repository
 
+To create a repository for hosting Notion2Gatsby, you can simply run:
 
+```bash
+bash ./run.sh
+```
+
+It will setup;
+
+- a clean repository with gatsby template.
+- a script which will trasform your notion pages to posts.
+- Github secrets to access your notion
+
+Now go to the repo created, then you can see your blog running in shortly.
 
 
 
 ## Development
 
+This repo assumes Python version equals to 3.8, but you can try it with your own python version. (I've only tested Python 3.7~3.9) If so, you may want to edit `Pipfile`'s `python_version` entry with your python version.
+
 ### To run locally
 
-Copy the file `.env.example` to `.env` and fill the `NOTION_TOKEN` and `NOTION_ROOT_PAGE_ID` variable.
-
-Follow [this](https://www.redgregory.com/notion/2020/6/15/9zuzav95gwzwewdu1dspweqbv481s5) to see how to get your notion token.
-
-The `NOTION_ROOT_PAGE_ID` is the ID of the root note of your blog. The root note is a regular notion note which indexes all the posts you want to import in the blog, therefore, it should only list links to other notes.
-
-If the link of your root note is this `https://www.notion.so/Blog-83f4047341534d6bb846b1f561a13173`, the id is this: `83f4047341534d6bb846b1f561a13173`
-
-Then you can do `yarn import-notion-posts` to import post from notion to `./content/blog`.
-
-Finally, you can do `yarn develop` to run the blog locally.
-
-
-
-### To manually deploy to github pages
-
-`yarn import-notion-posts` to import the posts from notion.
-
-`yarn deploy` to build and publish the `public` directory to github page.
-
-To deploy on github pages, you have to use your username as repository name. See [here](https://pages.github.com/) for more information.
-
-If you don't want to deploy to github pages, you can host the content of the `public` directory anywhere you want.
-
-
-
-### Automatically deploy to github pages
-
-If you push this repository to github, it will use the [github action](https://github.com/features/actions) stored in `.github/workflows/deploy.yml` and automatically import your post from notion and build the blog.
-
-You have to let github know your `NOTION_TOKEN` and `NOTION_ROOT_PAGE_ID`. To do so, fill the info as [github secret](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets).
-
-The github action is configured to import the blog posts and rebuild the blog either:
-
-- every day at midnight UTC
-- each time you push on master
-- if you manually trigger the action on github
-
-## Posts
-
-To make the system work, you have to fill the following elements on your blog posts:
-![exampel](https://user-images.githubusercontent.com/604486/95316471-24c4ee80-0894-11eb-8399-f99701b801da.png)
-
+WIP
