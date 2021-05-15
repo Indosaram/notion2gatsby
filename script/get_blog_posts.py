@@ -89,6 +89,8 @@ def process_block(block, text_prefix=''):
     text = ''
     metas = []
     number = 1
+    toc_list = []
+    is_toc = False
 
     for content in block.children:
         # Close the bulleted list.
@@ -99,11 +101,14 @@ def process_block(block, text_prefix=''):
                 number = 1
 
         if content.type == 'header':
-            text = text + f'# {content.title}\n\n'
+            text += f'# {content.title}\n\n'
+            toc_list.append((content.title, 0))
         elif content.type == 'sub_header':
-            text = text + f'## {content.title}\n\n'
+            text += f'## {content.title}\n\n'
+            toc_list.append((content.title, 1))
         elif content.type == 'sub_sub_header':
-            text = text + f'### {content.title}\n\n'
+            text += f'### {content.title}\n\n'
+            toc_list.append((content.title, 2))
         elif content.type == 'code':
             text = text + f'```{content.language}\n{content.title}\n```\n\n'
         elif content.type == 'image':
@@ -134,8 +139,7 @@ def process_block(block, text_prefix=''):
             else:
                 text = text + text_prefix + f'{content.title}\n\n'
         elif content.type == 'table_of_contents':
-            # Add pre-built Gatsby toc element here
-            pass
+            is_toc = True
         elif content.type == 'quote':
             text = text + f'> {content.title}\n'
         elif content.type == 'video':
@@ -211,11 +215,24 @@ def process_block(block, text_prefix=''):
             print("Unsupported type: " + content.type)
 
         if len(content.children) and content.type != 'page':
-            child_text, child_metas = process_block(content, '  ')
+            child_text, child_metas, _ = process_block(content, '  ')
             text = text + child_text
             metas = metas + child_metas
 
-    return text, metas
+    if not is_toc:
+        toc_list = None
+
+    return text, metas, toc_list
+
+
+def make_toc(toc_list):
+    toc = ""
+    if toc_list:
+        for text, level in toc_list:
+            tabs = '\t' * level
+            toc += f"{tabs}[{text}](#{text.lower()})\n"
+
+    return toc
 
 
 def to_markdown(page_id, ignore):
@@ -234,7 +251,7 @@ def to_markdown(page_id, ignore):
     cover_image_name = download_file(page_cover_url, dest_path, block_id)
     metas.append(f"featured: {cover_image_name}")
 
-    text, child_metas = process_block(page)
+    text, child_metas, toc_list = process_block(page)
 
     metas = metas + child_metas
 
@@ -251,7 +268,7 @@ def to_markdown(page_id, ignore):
         metas.append(f"description: '{description}'")
 
     metaText = '---\n' + '\n'.join(metas) + '\n---\n'
-    text = metaText + text
+    text = metaText + make_toc(toc_list) + text
 
     # Save the page data if it is not the root page.
     if not ignore:

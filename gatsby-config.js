@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
-        publisherId: `ca-pub-xxxxxxxxxx`
+        publisherId: `ca-pub-xxxxxxxxxx`,
       },
     },
     `gatsby-plugin-dark-mode`,
@@ -63,6 +63,15 @@ module.exports = {
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-external-links`,
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: `anchor-header`,
+              maintainCase: false,
+              removeAccents: true,
+              elements: [`h2`, "h3", `h4`],
+            },
+          },
         ],
       },
     },

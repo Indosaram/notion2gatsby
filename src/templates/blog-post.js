@@ -1,5 +1,5 @@
 import React from "react"
-import Helmet from "react-helmet";
+import Helmet from "react-helmet"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
@@ -42,7 +42,7 @@ export default function BlogPost({ data, pageContext, location }) {
           <h2>{post.frontmatter.date}</h2>
           <img src={hero}></img>
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        </article>  
+        </article>
       </main>
       <nav
         css={css`
@@ -74,9 +74,9 @@ export default function BlogPost({ data, pageContext, location }) {
       </nav>
       <Helmet>
         <script async>
-            var childs = document.getElementsByClassName('task-list-item');
-            var parentElement = childs[0].parentNode;
-            parentElement.classList.add('task-list');
+          var childs = document.getElementsByClassName('task-list-item'); var
+          parentElement = childs[0].parentNode;
+          parentElement.classList.add('task-list');
         </script>
       </Helmet>
     </Layout>
@@ -84,7 +84,7 @@ export default function BlogPost({ data, pageContext, location }) {
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
@@ -101,7 +101,7 @@ export const query = graphql`
           }
         }
       }
-    } 
+    }
     site {
       siteMetadata {
         siteUrl

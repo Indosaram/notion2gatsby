@@ -4,7 +4,7 @@ import { css } from "@emotion/react"
 import { rhythm } from "../utils/typography"
 import { Link, graphql } from "gatsby"
 import SEO from "../components/SEO"
-import {siteMetadata} from "../../gatsby-config"
+import { siteMetadata } from "../../gatsby-config"
 
 export default function Blog({ data, location }) {
   return (

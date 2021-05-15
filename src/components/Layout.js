@@ -5,17 +5,19 @@ import { rhythm } from "../utils/typography"
 import DarkModeToggler from "./DarkModeToggler"
 import ClientOnly from "./ClientOnly"
 
-const isActive = propsIfActive => ({ isPartiallyCurrent, href, location }) => {
-  if (isPartiallyCurrent) {
-    if (href === "/" && location.pathname !== "/") {
-      return null
+const isActive =
+  propsIfActive =>
+  ({ isPartiallyCurrent, href, location }) => {
+    if (isPartiallyCurrent) {
+      if (href === "/" && location.pathname !== "/") {
+        return null
+      }
+
+      return propsIfActive
     }
 
-    return propsIfActive
+    return null
   }
-
-  return null
-}
 
 const MenuLink = props => (
   <Link

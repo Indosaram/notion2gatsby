@@ -74,9 +74,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
-   resolve: {
+    resolve: {
       fallback: {
-        path: require.resolve('path-browserify'),
+        path: require.resolve("path-browserify"),
       },
     },
   })

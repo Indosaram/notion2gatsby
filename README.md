@@ -10,8 +10,6 @@ Notion2Gatsby is a convenient tool to transform your notion pages to fancy Gatsb
 
 [Demo](https://indosaram.github.io/notion2gatsby/)
 
-
-
 ## Setup
 
 ### Install dependencies
@@ -24,47 +22,43 @@ A command below will install Github CLI and make you login to Github via CLI. Af
 bash ./install.sh
 ```
 
-
-
 ### Setup `params.json` file
 
 In the root of the repo, you will find `example.json`. Copy this file and rename as `params.json`, as Notion2Gatsby takes this filename as a default. A structure of this file is as below:
 
 ```json
 {
-    "template_repo" : "https://github.com/Indosaram/notion2gatsby.git",
-    "blog_title" : "MY BLOG",
-    "description" : "THIS IS MY BLOG",
-    "author" : "TEST",
-    "github_username" : "MY_USERNAME",
-    "target_dir" : "/Users/indo/code",
-    "notion_user_id": "example@exmple.com",
-    "notion_token" : "MY_NOTION_TOKEN",
-    "notion_root_url" : "https://www.notion.so/MY_PAGE_URL",
-    "google_analytics" : "U-XXX",
-    "google_adsense" : "ca-pub-xx"
+  "template_repo": "https://github.com/Indosaram/notion2gatsby.git",
+  "blog_title": "MY BLOG",
+  "description": "THIS IS MY BLOG",
+  "author": "TEST",
+  "github_username": "MY_USERNAME",
+  "target_dir": "/Users/indo/code",
+  "notion_user_id": "example@exmple.com",
+  "notion_token": "MY_NOTION_TOKEN",
+  "notion_root_url": "https://www.notion.so/MY_PAGE_URL",
+  "google_analytics": "U-XXX",
+  "google_adsense": "ca-pub-xx"
 }
 ```
 
-| Name             | Description                                                  | Required |
-| ---------------- | ------------------------------------------------------------ | -------- |
-| template_repo    | A url of template repository.                                | *        |
-| blog_title       | A title of your blog, and the repository name. All whitespace will be converted with `_`. | *        |
-| description      | A short description of your blog                             |          |
-| author           | Author name                                                  |          |
-| github_username  | Github username. i.e. Indosaram (Not email address)          | *        |
-| target_dir       | A directory to clone the template repository. You may modify this entry according to your OS running. | *        |
-| notion_user_id   | NOT USED                                                     |          |
-| notion_token     | A secret token to grant Notion2Gatsby access permission to your notion page. | *        |
-| notion_root_url  | A url of root page                                           | *        |
-| google_analytics | Google analytics identifier                                  |          |
-| google_adsense   | Google adsense identifier                                    |          |
+| Name             | Description                                                                                           | Required |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| template_repo    | A url of template repository.                                                                         | \*       |
+| blog_title       | A title of your blog, and the repository name. All whitespace will be converted with `_`.             | \*       |
+| description      | A short description of your blog                                                                      |          |
+| author           | Author name                                                                                           |          |
+| github_username  | Github username. i.e. Indosaram (Not email address)                                                   | \*       |
+| target_dir       | A directory to clone the template repository. You may modify this entry according to your OS running. | \*       |
+| notion_user_id   | NOT USED                                                                                              |          |
+| notion_token     | A secret token to grant Notion2Gatsby access permission to your notion page.                          | \*       |
+| notion_root_url  | A url of root page                                                                                    | \*       |
+| google_analytics | Google analytics identifier                                                                           |          |
+| google_adsense   | Google adsense identifier                                                                             |          |
 
 If an entry is not marked as 'required', you don't have to fill up that entry. However, you should leave it as it is! Do not delete the entry.
 
 To get your notion token, please refer [this](https://www.redgregory.com/notion/2020/6/15/9zuzav95gwzwewdu1dspweqbv481s5) page.
-
-
 
 ### Setup Notion page
 
@@ -81,8 +75,6 @@ root
 
 From root page, Notion2Gatsby will read subpages accordingly. Next, you must share your page via web. Notion2Gatsby only requires read-only permission.
 
-
-
 ### (Optional) Create a repository
 
 You can always host this Gatsby template on your own repo. However, If you want Notion2Gatsby handle creating a repository for you, then run-
@@ -98,8 +90,6 @@ It will setup;
 - Github secrets to access your notion
 
 Now go to the repo created, then you can see your blog running in shortly.
-
-
 
 ## Development
 
