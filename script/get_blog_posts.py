@@ -134,7 +134,8 @@ def process_block(block, text_prefix=''):
             else:
                 text = text + text_prefix + f'{content.title}\n\n'
         elif content.type == 'table_of_contents':
-            text = text  # + 'toc\n'
+            # Add pre-built Gatsby toc element here
+            pass
         elif content.type == 'quote':
             text = text + f'> {content.title}\n'
         elif content.type == 'video':

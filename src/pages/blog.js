@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 import { rhythm } from "../utils/typography"
 import { Link, graphql } from "gatsby"
 import SEO from "../components/SEO"

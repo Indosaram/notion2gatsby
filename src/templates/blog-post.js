@@ -4,7 +4,7 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import { rhythm } from "../utils/typography"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 import { withPrefix } from "gatsby"
 
 export default function BlogPost({ data, pageContext, location }) {
