@@ -2,11 +2,11 @@
 
 > Disclaimer : This repository is forked from [Arnaud's repo](https://github.com/ArnaudValensi/ArnaudValensi.github.io). His repo is not being maintained, so I modified some codes to make it work.
 
-Notion❤️Gatsby
+![Notion❤️Gatsby](./.github/assets/cover.jpeg)
 
 Notion2Gatsby is a convenient tool to transform your notion pages to fancy Gatsby site.
 
-Because it is in very early development, so I welcome any kind of suggestion and feature requests.
+- Because it is in very early development, so I welcome any kind of suggestion and feature requests.
 
 [Demo](https://indosaram.github.io/notion2gatsby/)
 
@@ -26,9 +26,9 @@ bash ./install.sh
 
 
 
-## Setup `params.json` file
+### Setup `params.json` file
 
-In the root of the repo, you will find `example.json`, as below:
+In the root of the repo, you will find `example.json`. Copy this file and rename as `params.json`, as Notion2Gatsby takes this filename as a default. A structure of this file is as below:
 
 ```json
 {
@@ -83,9 +83,9 @@ From root page, Notion2Gatsby will read subpages accordingly. Next, you must sha
 
 
 
-### Create repository
+### (Optional) Create a repository
 
-To create a repository for hosting Notion2Gatsby, you can simply run:
+You can always host this Gatsby template on your own repo. However, If you want Notion2Gatsby handle creating a repository for you, then run-
 
 ```bash
 bash ./run.sh

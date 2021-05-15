@@ -178,7 +178,34 @@ def process_block(block, text_prefix=''):
 </div>\n
 """
             )
+        elif content.type == 'collection_view':
+            table = content.collection
+            rows = table.get_rows()
 
+            schema = []
+            for entry in table.get_schema_properties():
+                if entry["id"] == "title":
+                    schema.insert(0, (entry["slug"], entry["name"]))
+                else:
+                    schema.append((entry["slug"], entry["name"]))
+
+            text += f"<table>\n<thead>\n<tr>{content.title}</tr>\n</thead>\n<tbody>\n"
+            for row in rows:
+                text += "<tr>"
+                for scheme in schema:
+                    slug, name = scheme
+                    value_ = getattr(row, name)
+                    if value_:
+                        if isinstance(value_, list):
+                            value = value_[0]
+                        else:
+                            value = value_
+                    else:
+                        value = ""
+                    text += f"<td>{value}</td>\n"
+
+                text += "</tr>\n"
+            text += "</tbodyn</table>\n"
         else:
             print("Unsupported type: " + content.type)
 
