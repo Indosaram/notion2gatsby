@@ -1,13 +1,13 @@
 import datetime
 import os
 import re
-import requests
 import hashlib
 import shutil
 import sys
 
-from slugify import slugify
+import requests
 
+from slugify import slugify
 from notion.client import NotionClient
 from PIL import Image
 
@@ -87,10 +87,10 @@ def download_file(file_url, destination_folder, block_id=None):
 def process_block(block, text_prefix=''):
     was_list = False
     text = ''
+    toc = ""
     metas = []
     number = 1
     toc_list = []
-    is_toc = False
 
     for content in block.children:
         # Close the bulleted list.
@@ -139,7 +139,7 @@ def process_block(block, text_prefix=''):
             else:
                 text = text + text_prefix + f'{content.title}\n\n'
         elif content.type == 'table_of_contents':
-            is_toc = True
+            toc = "```toc\n\n```\n\n"
         elif content.type == 'quote':
             text = text + f'> {content.title}\n'
         elif content.type == 'video':
@@ -219,20 +219,7 @@ def process_block(block, text_prefix=''):
             text = text + child_text
             metas = metas + child_metas
 
-    if not is_toc:
-        toc_list = None
-
-    return text, metas, toc_list
-
-
-def make_toc(toc_list):
-    toc = ""
-    if toc_list:
-        for text, level in toc_list:
-            tabs = '\t' * level
-            toc += f"{tabs}[{text}](#{text.lower()})\n"
-
-    return toc
+    return text, metas, toc
 
 
 def to_markdown(page_id, ignore):
@@ -251,7 +238,7 @@ def to_markdown(page_id, ignore):
     cover_image_name = download_file(page_cover_url, dest_path, block_id)
     metas.append(f"featured: {cover_image_name}")
 
-    text, child_metas, toc_list = process_block(page)
+    text, child_metas, toc = process_block(page)
 
     metas = metas + child_metas
 
@@ -268,13 +255,11 @@ def to_markdown(page_id, ignore):
         metas.append(f"description: '{description}'")
 
     metaText = '---\n' + '\n'.join(metas) + '\n---\n'
-    text = metaText + make_toc(toc_list) + text
+    text = metaText + toc + text
 
     # Save the page data if it is not the root page.
     if not ignore:
         markdown_pages[slug] = text
-
-    return slug
 
 
 if __name__ == "__main__":

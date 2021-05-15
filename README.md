@@ -91,6 +91,18 @@ It will setup;
 
 Now go to the repo created, then you can see your blog running in shortly.
 
+## Writing your articles
+
+Before continue, you may want to refer [Markdown style preview](https://indosaram.github.io/notion2gatsby/blog/markdown-style-preview/) page, so you can choose what components from Notion to use.
+
+### Cover image
+
+Notion2Gatsby requires an article having a cover image. If an article does not have one, build stage will fail.
+
+### H1 tag
+
+`<h1>` tag is reserved for page title. Search engine bots will find this tag as a page title, so it is highly recommended to avoid using this tag other than the title. In addition, if you use `<h1>` tag, because a table of contents(toc) will include only from `<h2>` to `<h3>`, the strucutre will be ruined.
+
 ## Development
 
 This repo assumes Python version equals to 3.8, but you can try it with your own python version. (I've only tested Python 3.7~3.9) If so, you may want to edit `Pipfile`'s `python_version` entry with your python version.
