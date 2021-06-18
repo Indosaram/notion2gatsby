@@ -42,6 +42,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.
-          foler: public # The folder the action should deploy.
+          folder: public # The folder the action should deploy.
           clean: true
           single-commit: true
